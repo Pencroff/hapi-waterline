@@ -1,0 +1,38 @@
+{
+  "name": "hapi-waterline",
+  "version": "0.0.1",
+  "description": "Waterline (an adapter-based ORM for Node.js) as plugin for Hapi",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --bail --ui bdd --reporter spec -- test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pencroff/hapi-waterline.git"
+  },
+  "keywords": [
+    "orm",
+    "odm",
+    "dal",
+    "data",
+    "access",
+    "layer"
+  ],
+  "author": "Pencroff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pencroff/hapi-waterline/issues"
+  },
+  "homepage": "https://github.com/Pencroff/hapi-waterline",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "require-dir": "^0.1.0",
+    "waterline": "^0.10.14"
+  },
+  "devDependencies": {
+    "chai": "~1.10.0",
+    "hapi": "~8.0.0",
+    "mocha": "~2.0.1",
+    "sails-disk": "^0.10.7"
+  }
+}
