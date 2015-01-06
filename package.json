@@ -1,6 +1,6 @@
 {
   "name": "hapi-waterline",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Waterline (an adapter-based ORM for Node.js) as plugin for Hapi",
   "main": "index.js",
   "scripts": {
