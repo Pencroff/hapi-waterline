@@ -14,9 +14,7 @@
     "orm",
     "odm",
     "dal",
-    "data",
-    "access",
-    "layer"
+    "data access layer"
   ],
   "author": "Pencroff",
   "license": "MIT",
