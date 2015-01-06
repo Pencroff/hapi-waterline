@@ -1,3 +1,5 @@
+![hapi-waterline](./img/hapi-waterline.png)
+
 hapi-waterline
 ==============
 
