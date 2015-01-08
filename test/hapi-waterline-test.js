@@ -139,7 +139,7 @@ describe('Hapi Config', function () {
                 if (err) {
                     done(err);
                 }
-                var model = server.plugins['hapi-waterline'].models.pet2,
+                var model = server.plugins['hapi-waterline'].models['pet-partial'],
                     connections = model.connections;
                 expect(model).to.exist;
                 expect(connections[defaultConnection]).to.exist;
@@ -171,8 +171,8 @@ describe('Hapi Config', function () {
                 if (err) {
                     done(err);
                 }
-                var model = server.plugins['hapi-waterline'].models.pet2;
-                expect(model).to.equal(server.getModel('pet2'));
+                var model = server.plugins['hapi-waterline'].models['pet-partial'];
+                expect(model).to.equal(server.getModel('pet-partial'));
                 done();
             }
         );

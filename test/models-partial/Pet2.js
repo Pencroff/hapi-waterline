@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-    identity: 'pet2',
+    identity: 'pet-partial',
     attributes: {
         name: 'string',
         breed: 'string'
