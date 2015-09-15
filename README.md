@@ -37,6 +37,7 @@ var pluginOptions = {
         migrate: 'alter'
     },
 	decorateServer: true, // decorate server by method - getModel
+    fixturesPath: process.cwd() + '/test/fixtures', //The path where the .json fixture files are stored
     path: ['../api/models', ./common/models] // string or array of strings with paths to folders with models declarations 
 };
 
@@ -68,6 +69,24 @@ module.exports = {
     }
 };
 ```
+##Fixtures
+
+### Fixture example
+{
+  "model": "user",
+  "items": [
+    {
+      "id": 1,
+      "email": "johnDoe@example.com",
+      "password": "myPassword",      
+    },
+    {
+      "id": 2,
+      "email": "JohnDoeSecond@example.com",
+      "password": "MySecurePassword",
+    },
+  ]
+}
 
 ##API
 

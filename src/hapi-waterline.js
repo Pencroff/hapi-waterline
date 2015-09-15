@@ -6,7 +6,9 @@
 var requireDir = require('require-dir'),
     _ = require('lodash'),
     Waterline = require('waterline'),
+    WaterlineFixtures = require('waterline-fixtures'),
     orm = new Waterline();
+
 // just for testing
 exports.reset = function () {
     orm = new Waterline();
@@ -16,8 +18,10 @@ exports.register = function (server, options, next) {
     var adapters = options.adapters || {},
         connections = options.connections || {},
         modelsDefault = options.models,
-        bindFlag = options.decorateServer || false;
+        bindFlag = options.decorateServer || false,
+        fixturesPath = options.fixturesPath,
         path = options.path || [];
+
     if (bindFlag) {
         server.decorate('server', 'getModel', function (model) {
             return server.plugins['hapi-waterline'].models[model];
@@ -42,6 +46,7 @@ exports.register = function (server, options, next) {
             orm.loadCollection(extendedModel)
         });
     });
+    
     orm.initialize({
         adapters: adapters,
         connections: connections
@@ -53,7 +58,16 @@ exports.register = function (server, options, next) {
             databases: models.connections
         });
 
-        next();
+        // load fixtures
+        if(_.isString(fixturesPath)) {
+            WaterlineFixtures.init({
+                collections: models.collections,
+                dir: fixturesPath,
+                pattern: '*.json'
+            }, next);
+        } else {
+            next();
+        }
     });
 };
 

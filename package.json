@@ -25,7 +25,8 @@
   "dependencies": {
     "lodash": "^2.4.1",
     "require-dir": "^0.1.0",
-    "waterline": "^0.10.14"
+    "waterline": "^0.10.14",
+    "waterline-fixtures": "0.2.3"
   },
   "devDependencies": {
     "chai": "~1.10.0",
