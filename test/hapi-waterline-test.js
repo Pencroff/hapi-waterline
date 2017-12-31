@@ -7,7 +7,6 @@ var path = require('path'),
     root = __dirname,
     Hapi = require('hapi');
 
-
 describe('Hapi Config', function () {
     var hapiWaterline = require('../src/hapi-waterline'),
         adapter = require('sails-disk'),

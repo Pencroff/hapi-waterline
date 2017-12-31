@@ -8,13 +8,6 @@ var requireDir = require('require-dir'),
     Waterline = require('waterline'),
     orm = new Waterline();
 
-function requireDir(){
-
-
-
-
-}
-
 // just for testing
 exports.reset = function () {
     orm = new Waterline();
@@ -52,7 +45,6 @@ exports.plugin = {
             });
         });
 
-
         return new Promise((resolve, reject) => {
 
             var config ={
@@ -71,7 +63,6 @@ exports.plugin = {
                 resolve();
             });
         })
-
     },
 
     pkg: require('../package.json')
