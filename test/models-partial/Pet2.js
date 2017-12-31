@@ -3,9 +3,12 @@
  */
 
 module.exports = {
+    primaryKey: 'id',
     identity: 'pet-partial',
     attributes: {
-        name: 'string',
-        breed: 'string'
+
+        id: { type: 'number', autoMigrations: { autoIncrement: true } },
+        name: {type: 'string'},
+        breed: {type: 'string'}
     }
 };

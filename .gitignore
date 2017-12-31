@@ -25,3 +25,7 @@ nbproject
 .idea/
 coverage/
 benchmark/
+
+# No local disk db
+.tmp/localDiskDb
+

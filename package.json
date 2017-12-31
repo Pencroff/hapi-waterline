@@ -14,7 +14,7 @@
     "orm",
     "odm",
     "dal",
-    "data access layer"
+    "data acncucess layer"
   ],
   "author": "Pencroff",
   "license": "MIT",
@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/Pencroff/hapi-waterline",
   "dependencies": {
-    "lodash": "^2.4.1",
-    "require-dir": "^0.1.0",
-    "waterline": "^0.10.14"
+    "lodash": "^4.17.4",
+    "require-dir": "^0.3.2",
+    "waterline": "^0.13.1-9"
   },
   "devDependencies": {
-    "chai": "~1.10.0",
-    "hapi": "~8.0.0",
-    "mocha": "~2.0.1",
-    "sails-disk": "^0.10.7"
+    "chai": "~4.1.2",
+    "hapi": "~17.2.0",
+    "mocha": "~4.1.0",
+    "sails-disk": "^1.0.0-12"
   }
 }

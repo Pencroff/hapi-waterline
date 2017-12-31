@@ -22,8 +22,8 @@ var pluginOptions = {
     adapters: { // adapters declaration
             'mongo-adapter': require('sails-mongo')
     },
-    connections: {
-        mongoCon: { // connections declaration
+    datastores: {
+        mongoCon: { // datastores declaration
             adapter: 'mongo-adapter',
             user: '',
             password: '',
@@ -33,19 +33,22 @@ var pluginOptions = {
         }
     },
     models: { // common models parameters, not override exist declaration inside models
-        connection: 'mongoCon',
+        datatstore: 'mongoCon',
         migrate: 'alter'
     },
 	decorateServer: true, // decorate server by method - getModel
     path: ['../api/models', ./common/models] // string or array of strings with paths to folders with models declarations 
 };
 
-server.register({ // for hapi >= 8.0.0 or use server.pack.register for hapi < 8.0.0
+server.register({
     plugin: require('hapi-waterline'),
-    options: pluginOptions }, function(err) {
-	if (err) {
+    options: pluginOptions })
+    .then(()=>{...do stuff})
+    .catch(err=>{
+
 		console.log('error', 'Failed loading plugin: hapi-kea-config');
-	}
+
+	})
 });
 
 // Usage in the code
@@ -63,8 +66,14 @@ var pet = server.getModel('pet'); // applied by flag - decorateServer
 module.exports = {
     identity: 'pet',
     attributes: {
-        name: 'string',
-        breed: 'string'
+        primaryKey:'id',
+        identity: 'pet',
+        datastore: 'flat',
+        attributes: {
+            id: { type: 'number', autoMigrations: { autoIncrement: true } },
+            name: {type: 'string'},
+            breed: {type: 'string'}
+        }
     }
 };
 ```

@@ -3,10 +3,14 @@
  */
 
 module.exports = {
+    primaryKey: 'id',
     identity: 'user',
-    connection: 'flat',
+    datastore: 'flat',
     attributes: {
-        first_name: 'string',
-        last_name: 'string'
+
+        id: { type: 'number', autoMigrations: { autoIncrement: true } },
+        first_name: {type: 'string'},
+        last_name: {type: 'string'}
+
     }
 };
