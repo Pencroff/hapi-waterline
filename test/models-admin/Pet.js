@@ -7,8 +7,8 @@ module.exports = {
     identity: 'pet',
     datastore: 'flat',
     attributes: {
-        id: { type: 'number', autoMigrations: { autoIncrement: true } },
-        name: {type: 'string'},
-        breed: {type: 'string'}
+        id: { type: 'number', autoMigrations: { autoIncrement: true, columnType:'integer' } },
+        name: {type: 'string',autoMigrations: { columnType:'text' } },
+        breed: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };

@@ -7,8 +7,8 @@ module.exports = {
     identity: 'post',
     datastore: 'flat',
     attributes: {
-        id: { type: 'number', autoMigrations: { autoIncrement: true } },
-        title: {type :'string'},
-        text: {type: 'string'}
+        id: { type: 'number', autoMigrations: { autoIncrement: true , columnType:'integer'} },
+        title: {type: 'string',autoMigrations: { columnType:'text' } },
+        text: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };

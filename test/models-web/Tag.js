@@ -8,7 +8,7 @@ module.exports = {
     datastore: 'flat',
     attributes: {
 
-        id: { type: 'number', autoMigrations: { autoIncrement: true } },
-        name: {type : 'string' }
+        id: { type: 'number', autoMigrations: { autoIncrement: true, columnType:'integer' } },
+        name: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };
