@@ -71,7 +71,7 @@ exports.plugin = {
                     return resolve()
 
                 }
-                
+
                 helpers.createTables(definition_by_adapter, adapters).then(()=>{
 
                     resolve()

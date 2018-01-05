@@ -4,6 +4,13 @@
 
 "use strict";
 
+const TYPES={
+    number:'INTEGER',
+    string:'TEXT',
+    boolean: 'BOOLEAN',
+    json:'JSON'
+}
+
 /**
  * Crete model definitions to be used when defining tables
  * with the dapteres
@@ -46,6 +53,15 @@ function createDefinition(models, datastores){
                 }
 
                 delete definition[adapter].config[key1][key2].autoMigrations
+            }
+
+            if (!definition[adapter].config[key1][key2].columnType ){
+
+                let type =definition[adapter].config[key1][key2].type;
+
+                definition[adapter].config[key1][key2].columnType=TYPES[type]
+
+
             }
         }
     }
