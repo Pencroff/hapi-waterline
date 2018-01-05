@@ -4,11 +4,11 @@
 
 "use strict";
 
-const TYPES={
-    number:'INTEGER',
-    string:'TEXT',
+const TYPES = {
+    number: 'INTEGER',
+    string: 'TEXT',
     boolean: 'BOOLEAN',
-    json:'JSON'
+    json: 'JSON'
 }
 
 /**
@@ -19,47 +19,54 @@ const TYPES={
  * @param datastores
  * @returns {{}}
  */
-function createDefinition(models, datastores){
+function createDefinition(models, datastores) {
 
-    let definition={};
+    let definition = {};
 
     for (let key1 in models) {
 
         let model = models[key1];
         let adapter = datastores[model.datastore].adapter;
 
-        definition[adapter] = {
-            config: {[key1]: JSON.parse(JSON.stringify(model.attributes))},
-            datastore: model.datastore
-        };
+        if (!definition[adapter]){
 
-        for (let key2 in model.attributes){
+            definition[adapter]={}
 
-            definition[adapter].config[key1][key2].columnName = key2;
+        }
+
+        definition[adapter][key1]= {
+                config: JSON.parse(JSON.stringify(model.attributes)),
+                datastore: model.datastore
+            }
+
+
+        for (let key2 in model.attributes) {
+
+            definition[adapter][key1].config[key2].columnName = key2;
 
             if (key2 == model.primaryKey) {
 
-                definition[adapter].config[key1][key2].primaryKey = true
+                definition[adapter][key1].config[key2].primaryKey = true
 
             }
 
-            if (model.attributes[key2].autoMigrations!={}) {
-                for (let key3 in model.attributes[key2].autoMigrations){
+            if (model.attributes[key2].autoMigrations != {}) {
+                for (let key3 in model.attributes[key2].autoMigrations) {
 
                     let migration = model.attributes[key2].autoMigrations[key3]
-                    definition[adapter].config[key1][key2][key3] = migration
+                    definition[adapter][key1].config[key2][key3] = migration
 
 
                 }
 
-                delete definition[adapter].config[key1][key2].autoMigrations
+                delete definition[adapter][key1].config[key2].autoMigrations
             }
 
-            if (!definition[adapter].config[key1][key2].columnType ){
+            if (!definition[adapter][key1].config[key2].columnType) {
 
-                let type =definition[adapter].config[key1][key2].type;
+                let type = definition[adapter][key1].config[key2].type;
 
-                definition[adapter].config[key1][key2].columnType=TYPES[type]
+                definition[adapter][key1].config[key2].columnType = TYPES[type]
 
 
             }
@@ -75,24 +82,24 @@ function createDefinition(models, datastores){
  * @param adapters
  * @returns {Promise.<void>}
  */
-async function createTables(definition_by_adapter, adapters){
+async function createTables(definition_by_adapter, adapters) {
 
-    for (let adapter_name in definition_by_adapter){
+    for (let adapter_name in definition_by_adapter) {
 
-        let models=definition_by_adapter[adapter_name]
+        let models = definition_by_adapter[adapter_name]
 
-        for (let table in models.config) {
+        for (let table in models) {
 
-            let datastore=models.datastore;
-            let config=models.config[table];
+            let datastore = models[table].datastore;
+            let config = models[table].config;
 
             let adapter = adapters[adapter_name]
 
-            await new Promise((resolve, reject)=>{
+            await new Promise((resolve, reject) => {
 
-                adapter.define(datastore, table, config, (err, res)=> {
+                adapter.define(datastore, table, config, (err, res) => {
 
-                    if (err){
+                    if (err) {
 
                         reject(err)
 
@@ -106,7 +113,7 @@ async function createTables(definition_by_adapter, adapters){
     }
 }
 
-module.exports={
+module.exports = {
     createDefinition,
     createTables
 
