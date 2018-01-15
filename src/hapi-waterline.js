@@ -6,14 +6,28 @@
 var requireDir = require('require-dir'),
     _ = require('lodash'),
     Waterline = require('waterline'),
-    orm = new Waterline(),
-    helpers = require('./helpers');
+    orm = new Waterline();
 
 // just for testing
 exports.reset = function () {
     orm = new Waterline();
 };
 
+const LIFECYCLE=[
+    'beforeValidate',
+    'afterValidate',
+    'beforeCreate',
+    'afterCreate',
+    'beforeUpdate',
+    'afterUpdate'
+];
+
+/**
+ *
+ *
+ *
+ * @type {{register: exports.plugin.register, pkg}}
+ */
 exports.plugin = {
     register: async function (server, options) {
         var adapters = options.adapters || {},
@@ -29,9 +43,25 @@ exports.plugin = {
         if (_.isString(path)) {
             path = [path];
         }
-        let all={};
+
         _(path).forEach(function (item, index, collection) {
             var models = requireDir(item, {recurse: true});
+
+            if (options.bindServerToLifecycleCallbacks){
+
+                models.forEach(function(model){
+
+                    LIFECYCLE.forEach(function(lc){
+
+                        if(model[lc]){
+
+                            model[lc].bind({server})
+
+                        }
+                    })
+                })
+            }
+
             var extendedModels = _(models).map(function (model, key, object) {
                 if (modelsDefault) {
                     _(modelsDefault).forEach(function (value, key, object) {
@@ -40,7 +70,7 @@ exports.plugin = {
                         }
                     });
                 }
-                all[model.identity]=model;
+
                 return Waterline.Collection.extend(model);
             });
             _(extendedModels).forEach(function (extendedModel) {
@@ -48,17 +78,15 @@ exports.plugin = {
             });
         });
 
-        // For table creation with orm.define
-        let definition_by_adapter=helpers.createDefinition(all, datastores)
 
-        return new Promise((resolve, reject) => {
+        await new Promise((resolve, reject) => {
 
             var config ={
                 adapters: adapters,
                 datastores: datastores
             }
 
-            orm.initialize(config, function (err, models) {
+            orm.initialize(config, async function (err, models) {
                 if (err) reject(err);
                 server.expose({
                     orm: orm,
@@ -66,22 +94,7 @@ exports.plugin = {
                     databases: models.datastores
                 });
 
-                if (Object.keys( definition_by_adapter).length === 0){
-
-                    return resolve()
-
-                }
-
-                helpers.createTables(definition_by_adapter, adapters).then(()=>{
-
-                    resolve()
-
-
-                }).catch(err=>{
-
-                    reject(err)
-
-                })
+                resolve()
             });
         })
     },
