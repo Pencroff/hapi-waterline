@@ -38,22 +38,20 @@ exports.plugin = {
         _(path).forEach(function (item, index, collection) {
             var models = requireDir(item, {recurse: true});
 
-            if (options.serverBindLifecycle){
+            var extendedModels = _(models).map(function (model, key, object) {
 
-                models.forEach(function(model){
+                if (options.serverBindLifecycle){
 
-                    options.serverBindLifecycle.forEach(function(lc){
+                    _(options.serverBindLifecycle).forEach(function (item, index, collection) {
 
-                        if(model[lc]){
+                        if(model[item]){
 
-                            model[lc].bind({server})
+                            model[item] = model[item].bind(server)
 
                         }
                     })
-                })
-            }
+                }
 
-            var extendedModels = _(models).map(function (model, key, object) {
                 if (modelsDefault) {
                     _(modelsDefault).forEach(function (value, key, object) {
                         if (typeof (model[key]) === 'undefined') {

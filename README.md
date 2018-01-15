@@ -49,7 +49,9 @@ var pluginOptions = {
                             'afterCreate',
                             'beforeUpdate',
                             'afterUpdate'
-                        ],  // Binds server to sails waterline lifecycle callbacks
+                        ],  // Binds server to sails waterline lifecycle callbacks. Be aware that
+                            // this will not work with ArrowFunction in model definition
+                            // http://www.ecma-international.org/ecma-262/6.0/#sec-arrow-function-definitions-runtime-semantics-evaluation
     path: ['../api/models', './common/models'] // string or array of strings with paths to folders with models declarations 
 };
 
