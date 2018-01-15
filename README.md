@@ -42,7 +42,14 @@ var pluginOptions = {
         migrate: 'alter'
     },
 	decorateServer: true, // decorate server by method - getModel
-	bindServerToLifecycleCallback: true,  // Binds server to sails waterline lifecycle callbacks
+	serverBindLifecycle: [
+                            'beforeValidate',
+                            'afterValidate',
+                            'beforeCreate',
+                            'afterCreate',
+                            'beforeUpdate',
+                            'afterUpdate'
+                        ],  // Binds server to sails waterline lifecycle callbacks
     path: ['../api/models', './common/models'] // string or array of strings with paths to folders with models declarations 
 };
 

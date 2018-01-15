@@ -13,15 +13,6 @@ exports.reset = function () {
     orm = new Waterline();
 };
 
-const LIFECYCLE=[
-    'beforeValidate',
-    'afterValidate',
-    'beforeCreate',
-    'afterCreate',
-    'beforeUpdate',
-    'afterUpdate'
-];
-
 /**
  *
  *
@@ -47,11 +38,11 @@ exports.plugin = {
         _(path).forEach(function (item, index, collection) {
             var models = requireDir(item, {recurse: true});
 
-            if (options.bindServerToLifecycleCallbacks){
+            if (options.serverBindLifecycle){
 
                 models.forEach(function(model){
 
-                    LIFECYCLE.forEach(function(lc){
+                    options.serverBindLifecycle.forEach(function(lc){
 
                         if(model[lc]){
 
