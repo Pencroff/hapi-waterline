@@ -13,6 +13,9 @@ exports.reset = function () {
     orm = new Waterline();
 };
 
+
+
+
 /**
  *
  *
@@ -31,6 +34,7 @@ exports.plugin = {
                 return server.plugins['hapi-waterline'].models[model];
             });
         }
+
         if (_.isString(path)) {
             path = [path];
         }
@@ -39,18 +43,6 @@ exports.plugin = {
             var models = requireDir(item, {recurse: true});
 
             var extendedModels = _(models).map(function (model, key, object) {
-
-                if (options.serverBindLifecycle){
-
-                    _(options.serverBindLifecycle).forEach(function (item, index, collection) {
-
-                        if(model[item]){
-
-                            model[item] = model[item].bind({server:server})
-
-                        }
-                    })
-                }
 
                 if (modelsDefault) {
                     _(modelsDefault).forEach(function (value, key, object) {
