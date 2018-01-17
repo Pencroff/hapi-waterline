@@ -45,10 +45,7 @@ var pluginOptions = {
 	serverBindLifecycle: [
                             'beforeValidate',
                             'afterValidate',
-                            'beforeCreate',
-                            'afterCreate',
-                            'beforeUpdate',
-                            'afterUpdate'
+                            ...
                         ],  // Binds server to sails waterline lifecycle callbacks. Be aware that
                             // this will not work with ArrowFunction in model definition
                             // http://www.ecma-international.org/ecma-262/6.0/#sec-arrow-function-definitions-runtime-semantics-evaluation

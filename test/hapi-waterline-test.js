@@ -20,25 +20,25 @@ describe('Hapi Config', function () {
         done();
     });
 
-    // it('should expose waterline orm', function (done) {
-    //     var options = {someFlag: true};
-    //     server.register({
-    //
-    //         plugin: hapiWaterline,
-    //         options: options
-    //
-    //     }).then(() => {
-    //
-    //         expect(server.plugins['hapi-waterline']).to.exist;
-    //         expect(server.plugins['hapi-waterline'].orm).to.exist;
-    //         done();
-    //
-    //     }).catch(err => {
-    //
-    //         done(err);
-    //
-    //     })
-    // });
+    it('should expose waterline orm', function (done) {
+        var options = {someFlag: true};
+        server.register({
+
+            plugin: hapiWaterline,
+            options: options
+
+        }).then(() => {
+
+            expect(server.plugins['hapi-waterline']).to.exist;
+            expect(server.plugins['hapi-waterline'].orm).to.exist;
+            done();
+
+        }).catch(err => {
+
+            done(err);
+
+        })
+    });
 
     it('should support orm adapters and datastores', function (done) {
         var options = {
