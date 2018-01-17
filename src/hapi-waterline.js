@@ -46,7 +46,7 @@ exports.plugin = {
 
                         if(model[item]){
 
-                            model[item] = model[item].bind({server})
+                            model[item] = model[item].bind({server:server})
 
                         }
                     })
