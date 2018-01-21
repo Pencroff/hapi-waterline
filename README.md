@@ -1,5 +1,7 @@
 ![hapi-waterline](./img/hapi-waterline.png)
 
+### *If you are looking for an up to date hapi plugin for waterline, see https://github.com/tswayne/hapi-water
+
 hapi-waterline
 ==============
 
