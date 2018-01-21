@@ -6,6 +6,11 @@ hapi-waterline
 Waterline (an adapter-based ORM for Node.js) as a plugin for Hapi
 More details about waterline in original [repository](https://github.com/balderdashy/waterline "waterline repo")
 
+With the current version the latest of waterline version used. With this one have to
+define and create the sql tables on your own for sails-postgres adapter ( do not now if
+this applies for mongo or mydql adapters ). Please have a look att 
+[waterline-table](https://www.npmjs.com/package/waterline-table) for this.
+  
 ## Usage
 
 Install with npm:
@@ -22,8 +27,8 @@ var pluginOptions = {
     adapters: { // adapters declaration
             'mongo-adapter': require('sails-mongo')
     },
-    connections: {
-        mongoCon: { // connections declaration
+    datastores: {
+        mongoCon: { // datastores declaration
             adapter: 'mongo-adapter',
             user: '',
             password: '',
@@ -33,19 +38,22 @@ var pluginOptions = {
         }
     },
     models: { // common models parameters, not override exist declaration inside models
-        connection: 'mongoCon',
+        datatstore: 'mongoCon',
         migrate: 'alter'
     },
 	decorateServer: true, // decorate server by method - getModel
-    path: ['../api/models', ./common/models] // string or array of strings with paths to folders with models declarations 
+	path: ['../api/models', './common/models'] // string or array of strings with paths to folders with models declarations 
 };
 
-server.register({ // for hapi >= 8.0.0 or use server.pack.register for hapi < 8.0.0
+server.register({
     plugin: require('hapi-waterline'),
-    options: pluginOptions }, function(err) {
-	if (err) {
+    options: pluginOptions })
+    .then(()=>{...do stuff})
+    .catch(err=>{
+
 		console.log('error', 'Failed loading plugin: hapi-kea-config');
-	}
+
+	})
 });
 
 // Usage in the code
@@ -63,8 +71,14 @@ var pet = server.getModel('pet'); // applied by flag - decorateServer
 module.exports = {
     identity: 'pet',
     attributes: {
-        name: 'string',
-        breed: 'string'
+        primaryKey:'id',
+        identity: 'pet',
+        datastore: 'flat',
+        attributes: {
+            id: { type: 'number', autoMigrations: { autoIncrement: true } },
+            name: {type: 'string'},
+            breed: {type: 'string'}
+        }
     }
 };
 ```

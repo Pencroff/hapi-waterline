@@ -3,10 +3,12 @@
  */
 
 module.exports = {
+    primaryKey:'id',
     identity: 'pet',
-    connection: 'flat',
+    datastore: 'flat',
     attributes: {
-        name: 'string',
-        breed: 'string'
+        id: { type: 'number', autoMigrations: { autoIncrement: true, columnType:'integer' } },
+        name: {type: 'string',autoMigrations: { columnType:'text' } },
+        breed: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };

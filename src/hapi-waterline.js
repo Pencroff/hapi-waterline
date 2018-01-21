@@ -7,56 +7,79 @@ var requireDir = require('require-dir'),
     _ = require('lodash'),
     Waterline = require('waterline'),
     orm = new Waterline();
+
 // just for testing
 exports.reset = function () {
     orm = new Waterline();
 };
 
-exports.register = function (server, options, next) {
-    var adapters = options.adapters || {},
-        connections = options.connections || {},
-        modelsDefault = options.models,
-        bindFlag = options.decorateServer || false;
+
+
+
+/**
+ *
+ *
+ *
+ * @type {{register: exports.plugin.register, pkg}}
+ */
+exports.plugin = {
+    register: function (server, options) {
+        var adapters = options.adapters || {},
+            datastores = options.datastores || {},
+            modelsDefault = options.models,
+            bindFlag = options.decorateServer || false;
         path = options.path || [];
-    if (bindFlag) {
-        server.decorate('server', 'getModel', function (model) {
-            return server.plugins['hapi-waterline'].models[model];
+        if (bindFlag) {
+            server.decorate('server', 'getModel', function (model) {
+                return server.plugins['hapi-waterline'].models[model];
+            });
+        }
+
+        if (_.isString(path)) {
+            path = [path];
+        }
+
+        _(path).forEach(function (item, index, collection) {
+            var models = requireDir(item, {recurse: true});
+
+            var extendedModels = _(models).map(function (model, key, object) {
+
+                if (modelsDefault) {
+                    _(modelsDefault).forEach(function (value, key, object) {
+                        if (typeof (model[key]) === 'undefined') {
+                            model[key] = value;
+                        }
+                    });
+                }
+
+                return Waterline.Collection.extend(model);
+            });
+            _(extendedModels).forEach(function (extendedModel) {
+                orm.registerModel(extendedModel)
+            });
         });
-    }
-    if (_.isString(path)) {
-        path = [path];
-    }
-    _(path).forEach(function (item, index, collection) {
-        var models = requireDir(item, {recurse: true});
-        var extendedModels = _(models).map(function (model, key, object) {
-            if (modelsDefault) {
-                _(modelsDefault).forEach(function (value, key, object) {
-                    if (typeof (model[key]) === 'undefined') {
-                        model[key] = value;
-                    }
-                });
+
+
+        return new Promise((resolve, reject) => {
+
+            var config ={
+                adapters: adapters,
+                datastores: datastores
             }
-            return Waterline.Collection.extend(model);
-        });
-        _(extendedModels).forEach(function (extendedModel) {
-            orm.loadCollection(extendedModel)
-        });
-    });
-    orm.initialize({
-        adapters: adapters,
-        connections: connections
-    }, function (err, models) {
-        if(err) throw err;
-        server.expose({
-            orm: orm,
-            models: models.collections,
-            databases: models.connections
-        });
 
-        next();
-    });
-};
+            orm.initialize(config, async function (err, models) {
+                if (err) reject(err);
+                server.expose({
+                    orm: orm,
+                    models: models.collections,
+                    databases: models.datastores
+                });
 
-exports.register.attributes = {
+                resolve()
+            });
+        })
+    },
+
     pkg: require('../package.json')
+
 };

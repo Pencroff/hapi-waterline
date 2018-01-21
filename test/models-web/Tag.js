@@ -3,10 +3,12 @@
  */
 
 module.exports = {
+    primaryKey: 'id',
     identity: 'tag',
-    connection: 'flat',
+    datastore: 'flat',
     attributes: {
-        id: 'int',
-        name: 'string'
+
+        id: { type: 'number', autoMigrations: { autoIncrement: true, columnType:'integer' } },
+        name: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };

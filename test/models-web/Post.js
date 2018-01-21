@@ -3,11 +3,12 @@
  */
 
 module.exports = {
+    primaryKey: 'id',
     identity: 'post',
-    connection: 'flat',
+    datastore: 'flat',
     attributes: {
-        id: 'int',
-        title: 'string',
-        text: 'string'
+        id: { type: 'number', autoMigrations: { autoIncrement: true , columnType:'integer'} },
+        title: {type: 'string',autoMigrations: { columnType:'text' } },
+        text: {type: 'string',autoMigrations: { columnType:'text' } }
     }
 };
