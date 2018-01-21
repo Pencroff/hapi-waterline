@@ -23,7 +23,7 @@ exports.reset = function () {
  * @type {{register: exports.plugin.register, pkg}}
  */
 exports.plugin = {
-    register: async function (server, options) {
+    register: function (server, options) {
         var adapters = options.adapters || {},
             datastores = options.datastores || {},
             modelsDefault = options.models,
@@ -60,7 +60,7 @@ exports.plugin = {
         });
 
 
-        await new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
 
             var config ={
                 adapters: adapters,
