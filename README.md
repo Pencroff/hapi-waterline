@@ -13,9 +13,13 @@ this applies for mongo or mydql adapters ). Please have a look att
   
 ## Usage
 
-Install with npm:
+Install with npm (Hapi > 17.x):
 
     npm i hapi-waterline --save
+    
+or for old version
+    
+    npm i hapi-waterline@0.1.2 --save
 
 Register plugin in the `hapi` server
 
