@@ -6,10 +6,8 @@ hapi-waterline
 Waterline (an adapter-based ORM for Node.js) as a plugin for Hapi
 More details about waterline in original [repository](https://github.com/balderdashy/waterline "waterline repo")
 
-With the current version the latest of waterline version used. With this one have to
-define and create the sql tables on your own for sails-postgres adapter ( do not now if
-this applies for mongo or mydql adapters ). Please have a look att 
-[waterline-table](https://www.npmjs.com/package/waterline-table) for this.
+Please consider (if required)
+[waterline-table](https://www.npmjs.com/package/waterline-table) for working with SQL and `sails-postgres adapter`.
   
 ## Usage
 
