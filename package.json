@@ -1,36 +1,39 @@
 {
-  "name": "hapi-waterline",
-  "version": "0.1.2",
-  "description": "Waterline (an adapter-based ORM for Node.js) as plugin for Hapi",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --bail --ui bdd --reporter spec -- test/*-test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Pencroff/hapi-waterline.git"
-  },
-  "keywords": [
-    "orm",
-    "odm",
-    "dal",
-    "data access layer"
-  ],
-  "author": "Pencroff",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Pencroff/hapi-waterline/issues"
-  },
-  "homepage": "https://github.com/Pencroff/hapi-waterline",
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "require-dir": "^0.3.2",
-    "waterline": "^0.13.1-9"
-  },
-  "devDependencies": {
-    "chai": "~4.1.2",
-    "hapi": "~17.2.0",
-    "mocha": "~4.1.0",
-    "sails-disk": "^1.0.0-12"
-  }
+    "name": "hapi-waterline",
+    "version": "0.1.2",
+    "description": "Waterline (an adapter-based ORM for Node.js) as plugin for Hapi",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --bail --ui bdd --reporter spec -- test/*-test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Pencroff/hapi-waterline.git"
+    },
+    "keywords": [
+        "orm",
+        "odm",
+        "dal",
+        "data access layer"
+    ],
+    "author": "Pencroff",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Pencroff/hapi-waterline/issues"
+    },
+    "homepage": "https://github.com/Pencroff/hapi-waterline",
+    "engines": {
+        "node": ">=8.9.0"
+    },
+    "dependencies": {
+        "lodash": "^4.17.4",
+        "require-dir": "^0.3.2",
+        "waterline": "^0.13.1-9"
+    },
+    "devDependencies": {
+        "chai": "~4.1.2",
+        "hapi": "~17.2.0",
+        "mocha": "~4.1.0",
+        "sails-disk": "^1.0.0-12"
+    }
 }

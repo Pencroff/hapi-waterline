@@ -48,12 +48,8 @@ var pluginOptions = {
 server.register({
     plugin: require('hapi-waterline'),
     options: pluginOptions })
-    .then(()=>{...do stuff})
-    .catch(err=>{
-
-		console.log('error', 'Failed loading plugin: hapi-kea-config');
-
-	})
+    .then(() => {/*...do some stuff*/})
+    .catch((err) => console.log('error', 'Failed loading plugin: hapi-kea-config'));
 });
 
 // Usage in the code
@@ -104,4 +100,12 @@ Exten `server` if `decorateServer` flag is `true` in plugin config
 
 **model-indentity**: `string`, indentity value of model
 
+## Thanks
+
+Big thank you for [Mikael Lindahl](https://github.com/mickelindahl) for support Hapi 17.x
+
+## Analogs
+
+* [Dogwater](https://github.com/devinivy/dogwater)
+* [Hapi Water](https://github.com/tswayne/hapi-water)
 
