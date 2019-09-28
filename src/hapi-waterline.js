@@ -72,7 +72,8 @@ exports.plugin = {
                 server.expose({
                     orm: orm,
                     models: models.collections,
-                    databases: models.datastores
+                    databases: models.datastores,
+                    adapters
                 });
 
                 resolve()
